@@ -1,0 +1,61 @@
+- Importer Les telephones:
+
+    \copy telephone(numero,type) FROM 'telephone.csv' DELIMITER ';' CSV HEADER
+
+- Importer Candidats:
+
+    \copy candidat(password, nom, prenom, email, numero) FROM 'candidat.csv' DELIMITER ';' CSV HEADER
+    
+-Importer Referents:
+
+    \COPY referents(nom, prenom, email, numero) FROM 'referents.csv' DELIMITER ';' CSV HEADER
+    
+-Importer Page_Web:
+
+    \copy page_web(url,type,candidat) FROM 'page_web.csv' DELIMITER ';' CSV HEADER
+    
+-Importer Publication:
+
+    \copy publication(titre,ISBN,date,contenu,candidat) FROM 'publication.csv' DELIMITER ';' CSV HEADER
+
+-Importer CV:
+
+    \copy CV(titre,statut,langue,date_creation,date_dmj,candidat) FROM 'cv.csv' DELIMITER ';' CSV HEADER
+    
+-Importer Langues:
+
+    \copy langues(nom) FROM 'langues.csv' DELIMITER ';' CSV HEADER
+    
+-Importer Niveau:
+
+    \copy niveau(candidat,langue,niveau) FROM 'niveau.csv' DELIMITER ';' CSV HEADER
+
+-Importer Competences
+
+    \copy competences(nom) FROM 'competences.csv' DELIMITER ';' CSV HEADER
+    
+-Importer Secteur:
+
+    \copy Secteur(nom) FROM 'secteur.csv' DELIMITER ';' CSV HEADER
+    
+-Importer Experience_Profesionnelle:
+
+    \copy experience_profesionnelle(titre_de_poste,date_debut,date_fin,fonction_assure,nom_entreprise,cv,secteur) FROM 'experience_profesionnelle.csv' DELIMITER ';' CSV HEADER
+
+-Importer Associations:
+
+    \copy associations(nom,date_debut,date_fin,cv,secteur) FROM 'associations.csv' DELIMITER ';' CSV HEADER
+    
+-Importer Formation:
+
+    \copy formation(titre,type,date_debut,date_fin,etablissement,Pays,Ville,cv) FROM 'formation.csv' DELIMITER ';' CSV HEADER
+    
+-Importer Competences_cv:
+
+    \copy competences_cv(nom_competence,cv) FROM 'competences_cv.csv' DELIMITER ';' CSV HEADER
+    
+-Importer Candidat_Referents:
+
+    \copy candidat_referents(candidat,referent) FROM 'candidat_referents.csv' DELIMITER ';' CSV HEADER
+
+

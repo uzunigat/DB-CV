@@ -1,0 +1,52 @@
+Telephone(#numero: INTEGER, type: ENUM)
+avec numero clé et type NOT NULL
+
+Candidat(#id: INTEGER, password: VARCHAR, nom : VARCHAR, prenom: VARCHAR, email: VARCHAR, numero=>Telephone.numero) 
+avec id clé et password, nom,  prenom, mail NOT NULL et (nom, prenom, mail) UNIQUE 
+
+Referents(nom: VARCHAR, prenom: VARCHAR, email VARCHAR,  #numero=>Telephone.numero)
+avec numero clé et nom, prenom, email NOT NULL
+//On considère que les candidats ne peuvent pas répeter les referents, Pour ca le numero peut être clé
+
+Page_Web(#url: VARCHAR, type: enum, candidat=>Candidat.id)
+avec url clé et type NOT NULL
+
+Publication(titre: VARCHAR, #ISBN: Integer, date: Date, contenu: VARCHAR, candidat=>Candidat.id)
+avec ISBN clé et titre, date, contenu NOT NULL et contenu UNIQUE
+
+CV(titre: VARCHAR, statut: ENUM, langue: VARCHAR, date_creation: Date, date_dmj: Date, #candidat=>Candidat.id)
+avec candidat clé et titre, statut, langue, date_creation, date_dmj NOT NULL
+//La foreign Key va être primaryKey dans ce tableau parce que on a une relation 1 - 1 alors la clé étrangère jamais va se répeter.
+
+Langues(#nom: VARCHAR)
+avec nom clé
+
+Niveau(#candidat=>CV.candidat, #langue=>Langues.nom, niveau: Varchar(2))
+avec (candidat, langue) clé et niveau NOT NULL
+
+Competences(#nom: Varchar)
+avec nom clé
+//Par example: Leadership, Fédérer, Influencer, Gestion de projet, Gestion de temps, Charisme, ...
+
+Experience_Profesionnelle(#titre_de_poste: VARCHAR, #date_debut: Date, #date_fin: Date, fonction_assure: , nom_entreprise: VARCHAR, cv=>CV.candidat, secteur=>Secteur.nom)
+avec (titre_de_poste, date_debut, date_fin) clé et titre_de_poste, date_debut, date_fin, fonction_assure et nom_entreprise NOT NULL
+
+Associations(#nom: Varchar, #date_debut: Date, #date_fin: Date, cv=>CV.candidat, secteur=>Secteur.nom)
+avec (nom, date_debut, date_fin) clé et nom, date_debut, date_fin NOT NULL
+
+Secteur(#nom: VARCHAR)
+avec nom clé
+//Par example: Agriculture, Industries extractives, Industrie manufacturière, Transports et entreposage
+
+Etablissement(#nom, Pays: Varchar, Ville: Varchar)
+avec nom clé et Pays, Ville NOT NULL
+
+Formation(titre: Varchar, type: ENUM, date_debut: Date, date_fin: Date, etablissement => Etablissement.nom, #cv=>CV.candidat)
+avec cv clé et titre, type, date_debut, date_fin, etablissement, Pays, Ville NOT NULL
+
+Competences_CV(#nom_competence=>Competences.nom, #cv=>CV.candidat)
+avec (nom_competence, cv) clé
+
+Candidat_Referents(#candidat=>Candidat.id, #referent=>Referents.numero)
+avec (candidat, referents) clé
+avec (exp_pro, secteur) clé

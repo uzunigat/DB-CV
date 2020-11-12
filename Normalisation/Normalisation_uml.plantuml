@@ -1,0 +1,143 @@
+@startuml
+
+title CV_Thèque
+hide circle
+
+class CV{
+
+    -titre: Varchar
+    -statut: {Activé, Confidentiel, désactivé}
+    -langue: Varchar
+    -date_creation: Date
+    -date_dmj: Date
+
+}
+
+class Langues{
+
+    -nom: text {key}
+
+}
+
+'note top: Créer une autre table pour faire la relation entre tous les langues maîtrisées par le candidat avec des niveaux différents 
+
+class Candidat{
+
+    -id: Serial {key}
+    -password: Varchar
+    -nom: Varchar
+    -prenom: Varchar
+    -mail: Varchar
+
+}
+
+class Formation{
+
+    -titre: Varchar
+    -type: {profesionnelle, personnelle}
+    -date_debut: Date
+    -date_fin: Date
+    -etablissement: Varchar
+    -Pays: Varchar
+    -Ville: Varchar
+
+}
+
+class Experience_Profesionnelle{
+
+    -titre_de_poste: Varchar
+    -date_debut: Date
+    -date_fin: Date
+    -fonction_assure
+    -nom_entreprise: Varchar
+
+}
+
+class Competence{
+
+    -nom: Varchar {key}
+
+}
+
+class Publication{
+
+    -titre: Varchar
+    -ISBN: Integer
+    -date: Date
+    -contenu: Varchar
+    
+}
+
+class Referents{
+
+    -nom: Varchar
+    -prenom: Varchar
+
+}
+
+class Page_Web{
+
+    -url: Varchar {key}
+    -type: {profesionnelle, personnelle}
+
+}
+
+class Associations{
+
+    -nom: Varchar
+    -date_debut: Date
+    -date_fin: Date
+
+}
+
+class Secteur{
+
+    -nom: Varchar {key}
+
+}
+
+class Telephone{
+
+    -numero: Integer
+    -Type: {maison, mobile}
+
+}
+
+class Etablissement{
+
+    -nom {key}: VARCHAR
+    -Pays: VARCHAR
+    -Ville: VARCHAR
+
+}
+
+
+'Associations
+
+Candidat "1" -right- "1" CV: possède
+CV "1..*" -right- "1..*" Langues
+CV "*" -down- "1..*" Competence
+Candidat "1" -left- "*" Publication
+CV "1" -up- "1..*" Formation
+CV " 1 " -down- "1..*" Experience_Profesionnelle
+Candidat "1..*" -up- "1..*" Referents
+Candidat "1" -down- "1" Page_Web
+Associations "*" -left- "1" CV
+Associations "*" -right- "1" Secteur
+Experience_Profesionnelle "*" -- "1" Secteur
+Candidat "1" -left- "1" Telephone
+Referents "1" -up- "1" Telephone
+Formation "1" -up- "1" Etablissement
+
+(CV, Langues) .. Niveau
+
+class Niveau{
+
+    niveau: Varchar
+
+}
+
+
+
+@enduml
+
